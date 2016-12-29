@@ -84,7 +84,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             
             // Start video capture.
             captureSession?.startRunning()
-                        
+            
             greenBox()
             moveViewToFront()
             
@@ -117,7 +117,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             qrCodeFrameView?.frame = barCodeObject!.bounds
             
             if metadataObj.stringValue != nil {
-                messageLabel.text = metadataObj.stringValue
+                messageLabel.text = metadataObj.stringValue                
+                guard let url = URL(string: metadataObj.stringValue) else {return}
+                
+                UIApplication.shared.openURL(url)
+
             }
         }
     }
